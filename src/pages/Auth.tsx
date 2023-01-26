@@ -24,32 +24,30 @@ const Auth = () => {
   
 
 
-    const handleLogin = (event: React.FormEvent, email: string, password: string, setEmailError: any, setPasswordError: any) => {
+    const handleLogin = (event: React.FormEvent, email: string, password: string, setEmailError: any) => {
         event.preventDefault()
         setLoad(true)
         setEmailError('')
-        setPasswordError('')
 
         new Promise<FetchPromise>((resolve, reject) => {
-            if(!users.length){
-                setEmailError('Пользователя не существует')
-                reject({status: 401, message: 'Пользователя не существует'})
-                return
-            }
 
-            users.find(user => {
-                if(user.email === email){
-                    if(user.password !== password){
-                        setPasswordError('Не правильный пароль')
-                        reject({status: 401, message: 'Не правильный пароль'})
-                    }
-                }else{
-                    setEmailError('Пользователя не существует')
-                    reject({status: 401, message: 'Пользователя не существует'})
-                }
-                 
-            })
+            
+            
             setTimeout(() => {
+                const userFind = users.filter((user) => {
+                    if(user.email === email){
+                        if(user.password === password){
+                            return user
+                        }  
+                    }
+                })
+
+                if(!userFind.length){
+                    setEmailError('Не правельное имя или пароль')
+                    reject({status: 401, message: 'Не правельное имя или пароль'})
+                    return
+                }
+                
                 resolve({status: 200, message: 'Авторизация прошла успешно', data: {email, password}})
             }, 2000)
         }).then((res) => {

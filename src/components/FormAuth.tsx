@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 interface FormProps{
-    handleClick: (event: React.FormEvent, email: string, password: string, setEmailError: any, setPasswordError: any) => void
+    handleClick: (event: React.FormEvent, email: string, password: string, setEmailError: any) => void
     load: boolean;
 }
 
@@ -12,10 +12,9 @@ const FormAuth: FC<FormProps> = ({handleClick, load}) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [emailError, setEmailError] = useState<string>('') 
-    const [passwordError, setPasswordError] = useState<string>('') 
 
     return (
-        <Form onSubmit={(event) => handleClick(event, email, password, setEmailError, setPasswordError)}>
+        <Form onSubmit={(event) => handleClick(event, email, password, setEmailError)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control 
@@ -37,9 +36,6 @@ const FormAuth: FC<FormProps> = ({handleClick, load}) => {
                     type="password" 
                     placeholder="Password" 
                     />
-                <Form.Text className="text-muted">
-                    {passwordError}
-                </Form.Text>
             </Form.Group>
            
             <Button variant="primary" type="submit" disabled={load}>
