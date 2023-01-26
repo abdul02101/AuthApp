@@ -43,8 +43,8 @@ const Auth = () => {
                 })
 
                 if(!userFind.length){
-                    setEmailError('Не правельное имя или пароль')
-                    reject({status: 401, message: 'Не правельное имя или пароль'})
+                    setEmailError('Неправильное имя или пароль')
+                    reject({status: 401, message: 'Неправильное имя или пароль'})
                     return
                 }
                 
